@@ -19,22 +19,64 @@ const server = createServer((req, res) => {
       // 1. Usar readFile para leer el archivo
       // 2. Establecer el Content-Type correcto
       // 3. Enviar el contenido al cliente
+      const filePath = join(__dirname, 'views', 'home.html')
+      readFile(filePath, (err, data) => {
+        if (err) {
+          res.writeHead(500, { 'Content-Type': 'text/plain' })
+          res.end('Error interno del servidor')
+        } else {
+          res.writeHead(200, { 'Content-Type': 'text/html' })
+          res.end(data)
+        }
+      })
     } else if (url === '/login') {
       // TODO: Servir el archivo login.html desde la carpeta views
       // 1. Usar readFile para leer el archivo
       // 2. Establecer el Content-Type correcto
       // 3. Enviar el contenido al cliente
+      const filePath = join(__dirname, 'views', 'login.html')
+      readFile(filePath, (err, data) => {
+        if (err) {
+          res.writeHead(500, { 'Content-Type': 'text/plain' })
+          res.end('Error interno del servidor')
+        } else {
+          res.writeHead(200, { 'Content-Type': 'text/html' })
+          res.end(data)
+        }
+      })
+
     } else if (url === '/register') {
       // TODO: Servir el archivo register.html desde la carpeta views
       // 1. Usar readFile para leer el archivo
       // 2. Establecer el Content-Type correcto
       // 3. Enviar el contenido al cliente
+      const filePath = join(__dirname, 'views', 'register.html')
+      readFile(filePath, (err, data) => {
+        if (err) {
+          res.writeHead(500, { 'Content-Type': 'text/plain' })
+          res.end('Error interno del servidor')
+        } else {
+          res.writeHead(200, { 'Content-Type': 'text/html' })
+          res.end(data)
+        }
+      })
     } else {
       // TODO: Servir archivos estáticos desde la carpeta public (imágenes y CSS)
       // 1. Usar join para construir la ruta del archivo
       // 2. Usar readFile para leer el archivo
       // 3. Establecer el Content-Type usando getContentType
       // 4. Enviar el contenido al cliente
+      const filePath = join(__dirname, 'public', url)
+      readFile(filePath, (err, data) => {
+        if (err) {
+          res.writeHead(404, { 'Content-Type': 'text/plain' })
+          res.end('Archivo no encontrado')
+        } else {
+          const contentType = getContentType(filePath)
+          res.writeHead(200, { 'Content-Type': contentType })
+          res.end(data)
+        }
+      })
     }
   }
   // Manejo de solicitudes POST
@@ -44,6 +86,8 @@ const server = createServer((req, res) => {
       // 1. Establecer el código de estado 302
       // 2. Establecer el header Location: '/'
       // 3. Finalizar la respuesta
+      res.writeHead(302, { Location: '/' })
+      res.end()
     } else {
       // Enviar respuesta 404 para rutas POST no válidas
       res.writeHead(404)

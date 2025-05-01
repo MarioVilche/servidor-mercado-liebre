@@ -41,12 +41,14 @@ header .form {
 header div.logo {
   padding: 10px;
 }
+
 header .form {
   display: flex;
   align-items: center;
   padding: 2px;
   font-size: 11px;
 }
+
 header nav {
   font-size: 12px;
   margin-left: 20px;
@@ -190,9 +192,11 @@ article div.main-article {
   main section article:hover {
     box-shadow: 0px 0px 10px rgb(100, 100, 100);
   }
+
   main section article:hover .description {
     display: block;
   }
+
   main section div.products {
     display: flex;
     flex-direction: row;
